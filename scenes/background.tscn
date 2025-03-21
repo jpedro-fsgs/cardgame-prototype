@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bok7kio2ck54d"]
+
+[ext_resource type="Texture2D" uid="uid://dvej31y1qxgrp" path="res://Card Asset/Backgrounds/background_1.png" id="1_y0upk"]
+[ext_resource type="Texture2D" uid="uid://beobipuern52q" path="res://Card Asset/Tables/table_red.png" id="2_jougr"]
+
+[node name="Background" type="Node2D"]
+
+[node name="Background3" type="Sprite2D" parent="."]
+scale = Vector2(1.29541, 1.29541)
+texture = ExtResource("1_y0upk")
+
+[node name="TableRed" type="Sprite2D" parent="."]
+scale = Vector2(1.5201, 1.5201)
+texture = ExtResource("2_jougr")

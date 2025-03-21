@@ -1,36 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://cj2ciqis4o08s"]
+[gd_scene load_steps=7 format=3 uid="uid://cj2ciqis4o08s"]
 
 [ext_resource type="Script" uid="uid://dclv20p0amcly" path="res://scripts/card_manager.gd" id="1_0wfyh"]
-[ext_resource type="Texture2D" uid="uid://dvej31y1qxgrp" path="res://Card Asset/Backgrounds/background_1.png" id="1_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://ccivthx4xi8qb" path="res://scenes/card.tscn" id="2_sugp2"]
-[ext_resource type="Texture2D" uid="uid://beobipuern52q" path="res://Card Asset/Tables/table_red.png" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bok7kio2ck54d" path="res://scenes/background.tscn" id="1_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://c2jrh48k6uman" path="res://scenes/deck.tscn" id="5_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://bpn1wk3j1yisk" path="res://scenes/card_slot.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cvglevgrx0kf3" path="res://scenes/player_hand.tscn" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://cvma7ec2pemui" path="res://scripts/input_manager.gd" id="6_tefeu"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Background" type="Node2D" parent="."]
-
-[node name="Background3" type="Sprite2D" parent="Background"]
-position = Vector2(593.957, 325.25)
-scale = Vector2(1.29541, 1.29541)
-texture = ExtResource("1_jyhfs")
-
-[node name="TableRed" type="Sprite2D" parent="Background"]
-position = Vector2(576, 320)
-scale = Vector2(1.5201, 1.5201)
-texture = ExtResource("2_tbgi4")
+[node name="Background" parent="." instance=ExtResource("1_jyhfs")]
+position = Vector2(576, 328)
+scale = Vector2(1.02644, 1.02644)
 
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("1_0wfyh")
 
-[node name="Card" parent="CardManager" instance=ExtResource("2_sugp2")]
-position = Vector2(456, 480)
-scale = Vector2(0.5, 0.5)
-
-[node name="Card2" parent="CardManager" instance=ExtResource("2_sugp2")]
-position = Vector2(672, 472)
-scale = Vector2(0.5, 0.5)
-
 [node name="CardSlot" parent="." instance=ExtResource("5_tbgi4")]
-position = Vector2(576, 304)
+position = Vector2(576, 328)
 scale = Vector2(0.5, 0.5)
+
+[node name="PlayerHand" parent="." instance=ExtResource("5_tefeu")]
+
+[node name="Deck" parent="." instance=ExtResource("5_o6xl0")]
+position = Vector2(296, 224)
+scale = Vector2(0.5, 0.5)
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("6_tefeu")
