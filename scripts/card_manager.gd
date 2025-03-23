@@ -48,35 +48,12 @@ func finish_drag():
 		card_being_dragged.scale = Vector2(0.5, 0.5)
 		var card_slot_found = raycast_check_for_card_slot()
 		if card_slot_found:
-			card_being_dragged.position = card_slot_found.position
-			card_being_dragged.get_node("Area2D/CollisionShape2D").disabled = true
-			card_slot_found.add_to_slot(card_being_dragged)
-			player_hand.remove_card_from_hand(card_being_dragged)
+			if card_slot_found.add_to_slot(card_being_dragged):
+				player_hand.remove_card_from_hand(card_being_dragged)
 		
 		player_hand.update_hand_positions()
 		
 	card_being_dragged = null
-	
-
-#func _input(event):
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		#if event.is_pressed():
-			#var card = raycast_check_for_card()
-			#if card:
-				#start_drag(card)
-		#elif event.is_released() and card_being_dragged:
-			#finish_drag()
-	
-#func raycast_check_for_card():
-	#var space_state = get_world_2d().direct_space_state
-	#var parameters = PhysicsPointQueryParameters2D.new()
-	#parameters.position = get_global_mouse_position()
-	#parameters.collide_with_areas = true
-	#parameters.collision_mask = COLLISION_MASK_CARD
-	#var result = space_state.intersect_point(parameters)
-	#if result.size() > 0:
-		#return get_card_with_highest_z_index(result)
-	#return null
 	
 func raycast_check_for_card_slot():
 	var space_state = get_world_2d().direct_space_state
