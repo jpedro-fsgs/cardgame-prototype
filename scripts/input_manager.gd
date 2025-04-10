@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var card_manager: Node2D = $"../CardManager"
 @onready var deck: Node2D = $"../Deck"
+@onready var game_manager: Node2D = $"../GameManager"
 
 const COLLISION_MASK_CARD = 1
 const COLLISION_MASK_CARD_DECK = 4
@@ -26,4 +27,4 @@ func raycast_at_cursor():
 			if card_found:
 				card_manager.start_drag(card_found)
 		elif result_collision_mask == COLLISION_MASK_CARD_DECK:
-			deck.draw_card()
+			deck.draw_card(game_manager.current_player, 1)

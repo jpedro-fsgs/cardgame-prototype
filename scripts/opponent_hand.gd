@@ -5,26 +5,26 @@ const HAND_COUNT = 7
 const CARD_SCENE_PATH = 'res://scenes/card.tscn'
 const CARD_WIDTH = 90
 
-var player_hand = []
+var opponent_hand = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
 
 func add_card_to_hand(card):
-	player_hand.insert(0, card)
+	opponent_hand.insert(0, card)
 	update_hand_positions()
 	
 func update_hand_positions():
-	for i in range(player_hand.size()):
-		var card = player_hand[i]
+	for i in range(opponent_hand.size()):
+		var card = opponent_hand[i]
 		var new_position = calculate_card_position(i)
 		animate_card_to_position(card, new_position)
 
 func calculate_card_position(index):
 	var screen_size = get_viewport_rect().size
-	var total_width = (player_hand.size() - 1) * CARD_WIDTH
-	return Vector2(screen_size.x*0.5 + CARD_WIDTH * index - total_width*0.5, screen_size.y * 0.85)
+	var total_width = (opponent_hand.size() - 1) * CARD_WIDTH
+	return Vector2(screen_size.x*0.5 + CARD_WIDTH * index - total_width*0.5, screen_size.y * 0.15)
 	
 	
 func animate_card_to_position(card, card_position):
@@ -34,7 +34,7 @@ func animate_card_to_position(card, card_position):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func remove_card_from_hand(card):
-	player_hand.erase(card)
+	opponent_hand.erase(card)
 	
 
 func _process(_delta: float) -> void:

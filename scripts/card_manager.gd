@@ -1,43 +1,14 @@
 extends Node2D
 
 @onready var player_hand: Node2D = $"../PlayerHand"
+@onready var game_manager: Node2D = $"../GameManager"
 
-#const COLLISION_MASK_CARD = 1
+
 const COLLISION_MASK_CARD_SLOT = 2
 
 var screen_size
 var card_being_dragged
 var is_hovering_on_card
-
-#func connect_card_signals(card):
-	#card.connect("hovered", on_hovered_card)
-	#card.connect("hovered_off", on_hovered_off_card)
-
-#func on_hovered_card(card):
-	#if card_being_dragged:
-		#return
-	#if not is_hovering_on_card:
-		#is_hovering_on_card = true
-		#highlight_card(card, true)
-	
-#func on_hovered_off_card(card):
-	#if card_being_dragged:
-		#return
-	#highlight_card(card, false)
-	#var new_card_hovered = raycast_check_for_card()
-	#if new_card_hovered:
-		#highlight_card(new_card_hovered, true)
-	#else:
-		#is_hovering_on_card = false
-	
-#func highlight_card(card, hovered):
-	#if hovered:
-		#card.scale = Vector2(0.55, 0.55)
-		#card.z_index = 2
-	#else:
-		#card.scale = Vector2(0.5, 0.5)
-		#card.z_index = 1
-		#is_hovering_on_card = false
 
 func start_drag(card):
 	card_being_dragged = card
@@ -49,9 +20,9 @@ func finish_drag():
 		var card_slot_found = raycast_check_for_card_slot()
 		if card_slot_found:
 			if card_slot_found.add_to_slot(card_being_dragged):
-				player_hand.remove_card_from_hand(card_being_dragged)
+				game_manager.current_player.remove_card_from_hand(card_being_dragged)
 		
-		player_hand.update_hand_positions()
+		game_manager.update_all_players_hand_position()
 		
 	card_being_dragged = null
 	
@@ -65,16 +36,6 @@ func raycast_check_for_card_slot():
 	if result.size() > 0:
 		return result[0].collider.get_parent()
 	return null
-	
-
-func get_card_with_highest_z_index(cards):
-	var highest_z_index = -9999
-	var return_card
-	for card in cards.map(func(card): return card.collider.get_parent()):
-		if card.z_index > highest_z_index:
-			return_card = card
-			highest_z_index = card.z_index
-	return return_card
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
